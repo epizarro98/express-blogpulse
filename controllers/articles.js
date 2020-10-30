@@ -32,7 +32,7 @@ router.get('/new', (req, res) => {
 router.get('/:id', (req, res) => {
   db.article.findOne({
     where: { id: req.params.id },
-    include: [db.author]
+    include: [db.author, db.comment]
   })
   .then((article) => {
     if (!article) throw Error()
@@ -52,7 +52,22 @@ router.post('/:id', (req, res)=>{
     articleId: req.body.articleId
   })
   .then((post)=>{
-    res.redirect('/article/:id')
+    res.redirect('/')
+  })
+})
+
+
+router.get('/:id/comments', (req, res) => {  //artiles
+  //let articleIndex = req.body.articleId
+  db.comment.findAll({
+    where: { articleId: req.params.id },
+  })
+  .then((comments) => {
+    res.render('articles/comments', {comments: comments})
+  })
+  .catch((error) => {
+    console.log(error)
+    res.status(400).render('main/404')
   })
 })
 
