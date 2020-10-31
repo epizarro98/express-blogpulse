@@ -2,3 +2,12 @@
   width: 100%;
   height: auto;
 }
+
+body{
+  background-color: rgb(230, 235, 187);
+}
+
+.well{
+background-color: #FAF6F6;
+}
+
